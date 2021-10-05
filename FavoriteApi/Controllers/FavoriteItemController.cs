@@ -57,8 +57,11 @@ namespace FavoriteApi.Controllers
                 var userIdkey = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "emailId");
                 if (userIdkey != null)
                 {
+                   
                     userEmail = userIdkey.Value.ToString();
-                    bool flag = await _services.AddFavourites(userEmail, favourite);
+                    favourite.userEmail = userEmail;
+                    bool flag = await _services.AddFavourites( favourite);
+ 
                     return Created("", flag);
                 }
                 throw new UnauthorizedAccessException("Invalid User");
@@ -73,29 +76,29 @@ namespace FavoriteApi.Controllers
             }
         }
 
-        [HttpDelete]
-        [Route("{trackId}")]
-        public async Task<IActionResult> Remove(string trackId)
-        {
-            try
-            {
-                var userIdkey = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "emailId");
-                if (userIdkey != null)
-                {
-                    userEmail = userIdkey.Value.ToString();
-                    bool flag = await _services.RemoveFavourites(userEmail, trackId);
-                    return Ok(flag);
-                }
-                throw new UnauthorizedAccessException("Invalid User");
-            }
-            catch (ItemNotFound e)
-            {
-                return NotFound(e.Message);
-            }
-            catch (Exception e)
-            {
-                return StatusCode(500, e.Message);
-            }
-        }
+        //[HttpDelete]
+        //[Route("{trackId}")]
+        //public async Task<IActionResult> Remove(string trackId)
+        //{
+        //    try
+        //    {
+        //        var userIdkey = HttpContext.User.Claims.FirstOrDefault(c => c.Type == "emailId");
+        //        if (userIdkey != null)
+        //        {
+        //            userEmail = userIdkey.Value.ToString();
+        //            bool flag = await _services.RemoveFavourites(userEmail, trackId);
+        //            return Ok(flag);
+        //        }
+        //        throw new UnauthorizedAccessException("Invalid User");
+        //    }
+        //    catch (ItemNotFound e)
+        //    {
+        //        return NotFound(e.Message);
+        //    }
+        //    catch (Exception e)
+        //    {
+        //        return StatusCode(500, e.Message);
+        //    }
+       // }
     }
 }

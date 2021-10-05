@@ -8,7 +8,9 @@ namespace FavoriteApi.Models
 {
     public class FavoriteItem
     {
-        public string Id { get; set; }
+        
+
+       
         public int fdcId { get; set; }
         public string itemName { get; set; }
         public string description { get; set; }
@@ -17,7 +19,8 @@ namespace FavoriteApi.Models
         public string brandName { get; set; }
         public string foodCategory { get; set; }
         public string ingredients { get; set; }
-        public string foodNutrients { get; set; }
+        public string userEmail { get; set; }
+        public List<foodNutriants> foodNutrients { get; set; }
         
 
     }

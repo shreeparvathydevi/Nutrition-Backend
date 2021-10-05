@@ -24,21 +24,21 @@ namespace FavoriteApi.Services
             else
                 throw new ItemNotFound("No Favourites Available for This User");
         }
-        public async Task<bool> AddFavourites(string userEmail, FavoriteItem favourite)
+        public async Task<bool> AddFavourites( FavoriteItem favourite)
         {
-            bool flag = await _repository.IsNewsExist(userEmail, favourite.id);
-            if (!flag)
-                return await _repository.AddFavorites(userEmail, favourite);
+           bool flag = await _repository.AddFavourites( favourite);
+            if (flag)
+                return flag;
             else
                 throw new Itemalreadyexists("This Track Already Exist in Favourites");
         }
-        public async Task<bool> RemoveFavourites(string userEmail, string favouriteId)
-        {
-            bool flag = await _repository.IsNewsExist(userEmail, favouriteId);
-            if (flag)
-                return await _repository.RemoveFavourites(userEmail, favouriteId);
-            else
-                throw new TrackNotFoundException("No Track Available to Remove");
-        }
+        //public async Task<bool> RemoveFavourites(string userEmail, string favouriteId)
+        //{
+        //    bool flag = await _repository.IsNewsExist(userEmail, favouriteId);
+        //    if (flag)
+        //        return await _repository.RemoveFavourites(userEmail, favouriteId);
+        //    else
+        //        throw new TrackNotFoundException("No Track Available to Remove");
+        //}
     }
 }
